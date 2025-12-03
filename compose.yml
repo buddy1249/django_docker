@@ -1,0 +1,54 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: psgr # имя контейнера   
+    environment: 
+      - POSTGRES_USER=${DATABASE_USERNAME} # переменные среды
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    volumes:
+      - postgres-data-example:/var/lib/postgresql/data
+    networks:
+      - dbnet
+  
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - "127.0.0.1:8080:8080"
+    links:
+      - "postgres:db"
+    networks:
+      - dbnet
+    depends_on:
+      - postgres
+    
+
+  webdjngo:
+    build: ./sitedjango
+    image: sitedjango
+    container_name: sitedjango
+    command: gunicorn --bind 0.0.0.0:8000 sitedjango.wsgi:application
+    #command: "python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env
+    links:
+      - "postgres:dbps"
+    networks:
+      - dbnet
+    volumes:
+      - ./sitedjango:/app/www/sitedjango
+    ports:
+      - "8000:8000"
+    
+    depends_on:
+      - postgres
+
+
+
+networks: # создаем сеть
+  dbnet:  # название сети
+    driver: bridge # драйвер (тип) сети - мост
+
+volumes: # создание тома из postgres
+  postgres-data-example: # имя тома из postgres

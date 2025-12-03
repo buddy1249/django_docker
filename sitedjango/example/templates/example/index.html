@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+     <style>
+table, th, td {
+  border: 1px solid black; /* Задает границы для всех элементов таблицы */
+}
+table {
+  border-collapse: collapse; /* Объединяет границы ячеек в одну */
+}
+th, td {
+  padding: 15px; /* Добавляет отступы внутри ячеек */
+}
+</style>
+</head>
+<body>
+  
+
+<h2>Hello example!!!!!!!!!!!!</h2>
+
+<table> 
+            <tr> 
+                <th>id</th>	         
+                <th>дата</th>
+                <th>номер авто</th>               
+                <th>объем</th>			
+                		
+            </tr>
+            {% for i in w%}
+            <tr>                              
+                <th>{{ i.id }}</th>
+                <th>{{ i.date }}</th>
+                <th>{{ i.name }}</th>
+                <th>{{ i.amount }}</th>  
+                              
+            </tr>
+            {% endfor %}
+
+</table>
+
+</body>
+</html> 

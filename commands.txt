@@ -1,0 +1,46 @@
+docker compose exec postgres psql --username=postgres --dbname=mydata555
+
+mydata555=#
+
+mydata555=# \l
+                                                    List of databases
+   Name    |  Owner   | Encoding | Locale Provider |  Collate   |   Ctype    | Locale | ICU Rules |   Access privileges   
+-----------+----------+----------+-----------------+------------+------------+--------+-----------+-----------------------
+ mydata555 | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |        |           | 
+ postgres  | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |        |           | 
+ template0 | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |        |           | =c/postgres          +
+           |          |          |                 |            |            |        |           | postgres=CTc/postgres
+ template1 | postgres | UTF8     | libc            | en_US.utf8 | en_US.utf8 |        |           | =c/postgres          +
+           |          |          |                 |            |            |        |           | postgres=CTc/postgres
+(4 rows)
+
+mydata555=# \dt
+                   List of relations
+ Schema |            Name            | Type  |  Owner   
+--------+----------------------------+-------+----------
+ public | auth_group                 | table | postgres
+ public | auth_group_permissions     | table | postgres
+ public | auth_permission            | table | postgres
+ public | auth_user                  | table | postgres
+ public | auth_user_groups           | table | postgres
+ public | auth_user_user_permissions | table | postgres
+ public | django_admin_log           | table | postgres
+ public | django_content_type        | table | postgres
+ public | django_migrations          | table | postgres
+ public | django_session             | table | postgres
+ public | example_agnks              | table | postgres
+(11 rows)
+
+
+mydata555=# select * from example_agnks;
+ id |    date    |  name  | waybill | amount | column | note 
+----+------------+--------+---------+--------+--------+------
+  1 | 02.12.2025 | к123мн | 12345   |    150 | 12887  | -
+  2 | 02.12.2025 | р123ро | 12345   |    250 | 123456 | -
+  3 | 02.12.2025 | р124ро | 123456  |     80 | 321654 | -
+(3 rows)
+
+
+
+mydata555=# \q    #выход
+ubuntu@ubuntu-HP:~/DOCKER/now_docker_django555$ 
