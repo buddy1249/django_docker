@@ -44,7 +44,15 @@ services:
     depends_on:
       - postgres
 
-
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80" # Порт 80 для входящих запросов
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d # Конфигурация Nginx
+      #- ./static:/app/static # Монтирование статических файлов
+    depends_on:
+      - webdjngo
 
 networks: # создаем сеть
   dbnet:  # название сети
