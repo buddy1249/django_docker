@@ -22,14 +22,13 @@ services:
       - dbnet
     depends_on:
       - postgres
-    
 
   webdjngo:
     build: ./sitedjango
     image: sitedjango
-    container_name: sitedjango
-    command: gunicorn --bind 0.0.0.0:8000 sitedjango.wsgi:application
-    #command: "python manage.py runserver 0.0.0.0:8000"
+    #container_name: sitedjango
+    command: gunicorn -b 0.0.0.0:8000 sitedjango.wsgi:application
+    #command: "python manage.py runserver"
     env_file:
       - .env
     links:
@@ -38,9 +37,8 @@ services:
       - dbnet
     volumes:
       - ./sitedjango:/app/www/sitedjango
-    ports:
-      - "8000:8000"
-    
+    expose:
+      - "8000"
     depends_on:
       - postgres
 
@@ -51,6 +49,8 @@ services:
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d # Конфигурация Nginx
       #- ./static:/app/static # Монтирование статических файлов
+    networks:
+      - dbnet
     depends_on:
       - webdjngo
 

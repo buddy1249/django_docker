@@ -12,9 +12,9 @@ RUN pip install --no-cache-dir gunicorn
 COPY . .
 EXPOSE 8000
 
-#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "manage.py", "runserver"]
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "sitedjango.wsgi:application"]
+CMD ["gunicorn", "-b", "0.0.0.0:8000", "sitedjango.wsgi:application"]
 
 USER userfdjango
 
